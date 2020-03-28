@@ -164,6 +164,7 @@ technique
 {
 	pass pass0
 	{
+		CullMode = None;
 		ZWriteEnable = True;
 		AlphaBlendEnable = True;
 		//AlphaTestEnable = True; // make invisible is alpha < 50
