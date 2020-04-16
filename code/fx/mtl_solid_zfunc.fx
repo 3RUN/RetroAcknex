@@ -155,8 +155,8 @@ technique
 		ZFunc = GREATER;
 		
 		ZWriteEnable = False;
-		AlphaBlendEnable = True;
-		AlphaTestEnable = True;
+		AlphaBlendEnable = False;
+		AlphaTestEnable = False;
 		
 		VertexShader = compile vs_3_0 VS(); 
 		PixelShader = compile ps_3_0 ZPS(); 
