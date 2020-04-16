@@ -18,6 +18,7 @@ This shader collection includes:
 - environment mapping
 - mirror floors (multiple)
 - lens flares (from lights + sun)
+- solid object visible through walls (don't know how it's called)
 
 PSone effects, could be toggled ON and OFF by commenting in .fx file for each material.
 
