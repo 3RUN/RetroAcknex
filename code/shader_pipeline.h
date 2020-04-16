@@ -47,6 +47,12 @@
 		effect = "mtl_solid_.fx";
 		flags = PASS_SOLID | AUTORELOAD;
 	}
+	
+	MATERIAL *mtl_solid_zfunc =
+	{
+		effect = "mtl_solid_zfunc.fx";
+		flags = PASS_SOLID | AUTORELOAD;
+	}
 
 	MATERIAL *mtl_terrain_ =
 	{

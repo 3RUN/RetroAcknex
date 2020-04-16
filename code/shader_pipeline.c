@@ -212,6 +212,11 @@ void shader_pipeline_update()
 	mtl_solid_->skill3 = floatv(cutoff_distance);
 	mtl_solid_->skill4 = floatv(light_brightness);
 	
+	mtl_solid_zfunc->skill1 = floatv(level_ambient);
+	mtl_solid_zfunc->skill2 = floatv(vertex_snapping);
+	mtl_solid_zfunc->skill3 = floatv(cutoff_distance);
+	mtl_solid_zfunc->skill4 = floatv(light_brightness);
+	
 	mtl_terrain_->skill1 = floatv(level_ambient);
 	mtl_terrain_->skill2 = floatv(vertex_snapping);
 	mtl_terrain_->skill3 = floatv(cutoff_distance);

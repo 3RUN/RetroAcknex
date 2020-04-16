@@ -128,6 +128,16 @@ action npc()
 	}
 }
 
+action npc_through_walls()
+{
+	my->material = mtl_solid_zfunc;
+	my->skill41 = floatv(0.5); // red (0...1)
+	my->skill42 = floatv(0.5); // green (0...1)
+	my->skill43 = floatv(1); // blue (0...1)
+	set(my, POLYGON | SHADOW | CAST);
+	my->eflags |= ANIMATE;
+}
+
 action npc_on_path()
 {
 	vec_fill(&my->scale_x, 5);
