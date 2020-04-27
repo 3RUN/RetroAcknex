@@ -179,44 +179,47 @@ void shader_pipeline_update_mirrors()
 	int i = 0;
 	for(i = 0; i < total_mirrors; i++)
 	{
-		if(mirror[i].is_visible) 
-		{ 
-			set(mirror[i].view_mirror, SHOW);
-			mirror[i].view_mirror->genius = camera->genius;
-			mirror[i].view_mirror->aspect = (screen_size.x / screen_size.y) * camera->aspect;
-			mirror[i].view_mirror->arc = camera->arc;
-			mirror[i].view_mirror->fog_start = camera->fog_start;
-			mirror[i].view_mirror->fog_end = camera->fog_end;
-			mirror[i].view_mirror->clip_far = camera->clip_far * 1.5; // make it bigger so we can see sky
-			mirror[i].view_mirror->clip_near = camera->clip_near * 2;
-			mirror[i].view_mirror->x = camera->x;
-			mirror[i].view_mirror->y = camera->y;
-			mirror[i].view_mirror->z = 2 * mirror[i].view_mirror->portal_z - camera->z;
-			mirror[i].view_mirror->pan = camera->pan;
-			mirror[i].view_mirror->tilt = -camera->tilt;
-			mirror[i].view_mirror->roll = -camera->roll;
-		}
-		else
-		{ 
-			// switch rendering off when all mirror objects are outside the frustum
-			reset(mirror[i].view_mirror, SHOW); 
-		}
-		
-		mirror[i].is_visible = false;
-		
 		if(mirror[i].mirror_ent)
 		{
-			if(!is(mirror[i].mirror_ent, CLIPPED)) 
-			{
-				vec_for_max(&mirror[i].view_mirror->portal_x, mirror[i].mirror_ent);
-				vec_add(&mirror[i].view_mirror->portal_x, &mirror[i].mirror_ent->x);
-				mirror[i].is_visible = true;
+			if(mirror[i].is_visible) 
+			{ 
+				set(mirror[i].view_mirror, SHOW);
+				mirror[i].view_mirror->genius = camera->genius;
+				mirror[i].view_mirror->aspect = (screen_size.x / screen_size.y) * camera->aspect;
+				mirror[i].view_mirror->arc = camera->arc;
+				mirror[i].view_mirror->fog_start = camera->fog_start;
+				mirror[i].view_mirror->fog_end = camera->fog_end;
+				mirror[i].view_mirror->clip_far = camera->clip_far * 1.5; // make it bigger so we can see sky
+				mirror[i].view_mirror->clip_near = camera->clip_near * 2;
+				mirror[i].view_mirror->x = camera->x;
+				mirror[i].view_mirror->y = camera->y;
+				mirror[i].view_mirror->z = 2 * mirror[i].view_mirror->portal_z - camera->z;
+				mirror[i].view_mirror->pan = camera->pan;
+				mirror[i].view_mirror->tilt = -camera->tilt;
+				mirror[i].view_mirror->roll = -camera->roll;
+			}
+			else
+			{ 
+				// switch rendering off when all mirror objects are outside the frustum
+				reset(mirror[i].view_mirror, SHOW); 
 			}
 			
-			mirror[i].mirror_ent->skill41 = floatv(level_ambient);
-			mirror[i].mirror_ent->skill42 = floatv(vertex_snapping);
-			mirror[i].mirror_ent->skill43 = floatv(cutoff_distance);
-			mirror[i].mirror_ent->skill44 = floatv(light_brightness);
+			mirror[i].is_visible = false;
+			
+			if(mirror[i].mirror_ent)
+			{
+				if(!is(mirror[i].mirror_ent, CLIPPED)) 
+				{
+					vec_for_max(&mirror[i].view_mirror->portal_x, mirror[i].mirror_ent);
+					vec_add(&mirror[i].view_mirror->portal_x, &mirror[i].mirror_ent->x);
+					mirror[i].is_visible = true;
+				}
+				
+				mirror[i].mirror_ent->skill41 = floatv(level_ambient);
+				mirror[i].mirror_ent->skill42 = floatv(vertex_snapping);
+				mirror[i].mirror_ent->skill43 = floatv(cutoff_distance);
+				mirror[i].mirror_ent->skill44 = floatv(light_brightness);
+			}	
 		}
 	}
 }
