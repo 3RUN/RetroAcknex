@@ -138,6 +138,42 @@ void shader_pipeline_create_mirror(ENTITY *ent, var reflection_power)
 	}
 }
 
+void shader_pipeline_remove_mirrors()
+{
+	int i = 0;
+	for(i = 0; i < total_mirrors; i++)
+	{
+		if(mirror[i].mirror_ent)
+		{
+			if(mirror[i].mirror_ent->material)
+			{
+				ptr_remove(mirror[i].mirror_ent->material);
+				mirror[i].mirror_ent->material = NULL;
+			}
+			
+			mirror[i].mirror_ent = NULL;
+		}
+		
+		if(mirror[i].view_mirror)
+		{
+			if(mirror[i].view_mirror->bmap)
+			{
+				mirror[i].view_mirror->bmap = NULL;
+			}
+			ptr_remove(mirror[i].view_mirror);
+			mirror[i].view_mirror = NULL;
+		}
+		
+		if(mirror[i].mirror_target_bmp)
+		{
+			ptr_remove(mirror[i].mirror_target_bmp);
+			mirror[i].mirror_target_bmp = NULL;
+		}
+	}
+	
+	total_mirrors = 0;
+}
+
 void shader_pipeline_update_mirrors()
 {
 	int i = 0;
@@ -246,6 +282,23 @@ void shader_pipeline_init()
 	
 	shader_pipeline_create_sky();
 	shader_pipeline_reset();
+}
+
+void shader_pipeline_remove()
+{
+	if(render_target_tga)
+	{
+		bmap_remove(render_target_tga);
+		render_target_tga = NULL;
+	}
+	
+	shader_pipeline_remove_sky();
+	shader_pipeline_remove_mirrors();
+	
+	#ifdef NES_COLOR_PALETTE
+		pp_view->material = NULL;	
+		camera->stage = NULL;
+	#endif
 }
 
 void shader_pipeline_update()

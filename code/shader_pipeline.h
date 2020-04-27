@@ -131,9 +131,13 @@
 
 	void shader_pipeline_create_mirror(ENTITY *ent, var reflection_power);
 	
+	void shader_pipeline_remove_mirrors();
+	
 	void shader_pipeline_update_mirrors();
 
 	void shader_pipeline_init();
+	
+	void shader_pipeline_remove();
 
 	void shader_pipeline_update();
 

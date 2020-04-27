@@ -323,6 +323,7 @@ void mouse_lock()
 
 void on_exit_event()
 {
+	shader_pipeline_remove();
 }
 
 void on_ent_remove_event(ENTITY *ent)
