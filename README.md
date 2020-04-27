@@ -19,6 +19,7 @@ This shader collection includes:
 - mirror floors (multiple)
 - lens flares (from lights + sun)
 - solid object visible through walls (don't know how it's called)
+- NES (can be changed in .fx to GAMEBOY or EGA) palette color and dither (postprocessing)
 
 PSone effects, could be toggled ON and OFF by commenting in .fx file for each material.
 
@@ -29,6 +30,8 @@ You can see how it looks like here:
 https://youtu.be/UIzDkqpYXgw
 
 CREDITS:
+
+- NES palette color and dither created by Coldberg. Original can be found here: https://www.shadertoy.com/view/MdfXDH
 - Prete aka Priest for creating those awesome lens-flare effects and lens flare images (which may not be distributed commercially).
 - Txesmi (forum member) thank you for helping me out with shaders! This whole shader pipeline 95% based on his work.
 - Kartoffel thank you for the simple effect that darkens a surface if you look at it at an angle.

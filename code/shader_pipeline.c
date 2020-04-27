@@ -138,7 +138,7 @@ void shader_pipeline_create_mirror(ENTITY *ent, var reflection_power)
 	}
 }
 
-void shader_pipeline_pdate_mirrors()
+void shader_pipeline_update_mirrors()
 {
 	int i = 0;
 	for(i = 0; i < total_mirrors; i++)
@@ -185,6 +185,53 @@ void shader_pipeline_pdate_mirrors()
 	}
 }
 
+// this function has to be called each time you change resolution!
+void shader_pipeline_reset()
+{
+	// create bmap with the largest resolution we can afford
+	if(!render_target_tga)
+	{
+		render_target_tga = bmap_createblack(2048, 2048, 32);
+	}
+	
+	// generate/adapt render target z buffer
+	bmap_zbuffer(render_target_tga);
+	
+	// reset all view sorting
+	int i = 0;
+	for(i = 0; i < total_mirrors; i++)
+	{
+		mirror[i].view_mirror->stage = NULL;
+	}
+	
+	// if you add any pp shaders into the view rendering chain, remove them all here too!
+	#ifdef NES_COLOR_PALETTE
+		pp_view->material = NULL;	
+		camera->stage = NULL;
+	#endif
+	
+	// now we start linking from the mirrors, due to the acknex BUG !
+	// mirrors (and any other square rendertargets) need to be rendered first !
+	// if you don't to this, you will get weird render target bug
+	for(i = 0; i < total_mirrors; i++)
+	{
+		if(mirror[i + 1].view_mirror != NULL)
+		{
+			mirror[i].view_mirror->stage = mirror[i + 1].view_mirror;
+		}
+		else
+		{
+			mirror[i].view_mirror->stage = camera;
+		}
+	}
+	
+	// if you have any pp shaders, add them into view rendering chain here!
+	#ifdef NES_COLOR_PALETTE
+		pp_view->material = mtl_pp_screen_;	
+		camera->stage = pp_view;
+	#endif
+}
+
 void shader_pipeline_init()
 {
 	mat_effect1 = mat_scales;
@@ -198,6 +245,7 @@ void shader_pipeline_init()
 	cutoff_distance = camera->fog_end;
 	
 	shader_pipeline_create_sky();
+	shader_pipeline_reset();
 }
 
 void shader_pipeline_update()
@@ -250,5 +298,5 @@ void shader_pipeline_update()
 	mtl_lens_flare_->skill1 = floatv(vertex_snapping / 2);
 	
 	shader_pipeline_update_sky();
-	shader_pipeline_pdate_mirrors();
+	shader_pipeline_update_mirrors();
 }

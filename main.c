@@ -340,8 +340,40 @@ void on_frame_event()
 	mouse_lock();
 }
 
+void safe_video_switch(var _mode)
+{
+	var propX = camera->size_x / screen_size.x;
+	var propY = camera->size_y / screen_size.y;
+	
+	video_mode = video_switch(_mode, 32, video_screen);
+	if(!video_mode)
+	{
+		video_mode = video_switch(7, 32, video_screen);
+	}
+	
+	camera->pos_x = floor(camera->pos_x * propX);
+	camera->pos_y = floor(camera->pos_y * propY);
+	camera->size_x = floor(screen_size.x * propX);
+	camera->size_y = floor(screen_size.y * propY);
+	
+	shader_pipeline_reset();
+}
+
+void decrease_resolution()
+{
+	safe_video_switch(video_mode - 1);
+}
+
+void increase_resolution()
+{
+	safe_video_switch(video_mode + 1);
+}
+
 void main()
 {
+	on_f4 = decrease_resolution;
+	on_f5 = increase_resolution;
+	
 	on_exit = on_exit_event;
 	on_ent_remove = on_ent_remove_event;
 	on_frame = on_frame_event;

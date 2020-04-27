@@ -4,6 +4,9 @@
 	// nice trick made by txesmi, without this you
 	// won't be able (f.e.) to have proper ambient on terrains
 	#define CUSTOM_AMBIENT
+	
+	// add NES color palette postprocessing shader !
+	#define NES_COLOR_PALETTE
 
 	#define MIRRORS_MAX 9 // only 9 mirror floor per level, if you want more, increase it here
 	#define MIRRORS_RESOLUTION 512 // reflection resolution, increase for better quality
@@ -15,6 +18,9 @@
 
 	BMAP *mtl_envmap_tga = "skycube+6.tga";
 	BMAP *mtl_chrome_tga = "chrome.tga";
+	BMAP *render_target_tga;
+
+	VIEW *pp_view = { layer = -1; flags = PROCESS_TARGET; }
 
 	float mat_scales[16] = { 16, 16, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
@@ -83,6 +89,12 @@
 		effect = "mtl_lens_flare_.fx";
 		flags = TRANSLUCENT | AUTORELOAD;
 	}
+	
+	MATERIAL *mtl_pp_screen_ = 
+	{
+		effect = "mtl_pp_screen_.fx";
+		flags = AUTORELOAD;
+	}
 
 	void mtl_envmap_view();
 
@@ -119,7 +131,7 @@
 
 	void shader_pipeline_create_mirror(ENTITY *ent, var reflection_power);
 	
-	void shader_pipeline_pdate_mirrors();
+	void shader_pipeline_update_mirrors();
 
 	void shader_pipeline_init();
 
