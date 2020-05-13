@@ -10,7 +10,6 @@ const float3 _Colors = float3(32.0, 32.0, 32.0);
 
 const float4 vecTime;
 const float4 vecViewPort;
-const float4 vecSkill1;
 
 texture TargetMap;
 texture mtlSkin1;
