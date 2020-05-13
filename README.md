@@ -43,4 +43,6 @@ CREDITS:
 Their shader pack can be found here: 
 https://github.com/dsoft20/psx_retroshader
 
-![Alt text](https://github.com/3RUN/RetroAcknex/blob/master/screenshots/shot_3.jpg?raw=true "Preview.")
+![Alt text](https://github.com/3RUN/RetroAcknex/blob/master/screenshots/shot_1.jpg?raw=true "Basic preview.")
+![Alt text](https://github.com/3RUN/RetroAcknex/blob/master/screenshots/shot_4.jpg?raw=true "Mirror preview.")
+![Alt text](https://github.com/3RUN/RetroAcknex/blob/master/screenshots/shot_5.jpg?raw=true "Sun lens flare preview.")
