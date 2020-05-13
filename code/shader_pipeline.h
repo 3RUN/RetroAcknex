@@ -5,8 +5,8 @@
 	// won't be able (f.e.) to have proper ambient on terrains
 	#define CUSTOM_AMBIENT
 	
-	// add NES color palette postprocessing shader !
-	#define NES_COLOR_PALETTE
+	// add PSX dither postprocessing shader
+	#define PSX_DITHER
 
 	#define MIRRORS_MAX 9 // only 9 mirror floor per level, if you want more, increase it here
 	#define MIRRORS_RESOLUTION 512 // reflection resolution, increase for better quality
@@ -15,7 +15,8 @@
 	#define SKYCUBE_TGA "skycube+6.tga"
 
 	ENTITY *skycube_ent = NULL;
-
+	
+	BMAP *mtl_dither_png = "dither.png";
 	BMAP *mtl_envmap_tga = "skycube+6.tga";
 	BMAP *mtl_chrome_tga = "chrome.tga";
 	BMAP *render_target_tga;
@@ -92,6 +93,7 @@
 	
 	MATERIAL *mtl_pp_screen_ = 
 	{
+		skin1 = mtl_dither_png;
 		effect = "mtl_pp_screen_.fx";
 		flags = AUTORELOAD;
 	}

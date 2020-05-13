@@ -20,6 +20,10 @@
 #define TYPE_NONE 0
 #define TYPE_LIGHT 1
 
+// toggle lens flares on/off
+#define LENS_FLARE_LIGHT
+#define LENS_FLARE_SUN
+
 #include "shader_pipeline.h"
 #include "lens_flare.h"
 
@@ -31,13 +35,19 @@ action light_point()
 	vec_set(&my->blue, COLOR_WHITE);
 	vec_set(&my->skill1, &my->x);
 
-	lens_flare_register(my, vector(0, 0, 0));
+	#ifdef LENS_FLARE_LIGHT
+		lens_flare_register(my, vector(0, 0, 0));
+	#endif
 	
 	while(my)
 	{
 		my->x = my->skill1 + fsin(total_ticks * 8, 64);
 		my->y = my->skill2 + fcos(total_ticks * 8, 64);
-		update_lens_flare(my);
+		
+		#ifdef LENS_FLARE_LIGHT
+			update_lens_flare(my);
+		#endif
+		
 		wait(1);
 	}
 }
@@ -49,12 +59,18 @@ action light_spot()
 	my->lightrange = 512;
 	vec_set(&my->blue, COLOR_WHITE);
 	
-	LIGHT_SOURCE *lens = lens_flare_register(my, vector(9, 0, 0));
+	#ifdef LENS_FLARE_LIGHT
+		LIGHT_SOURCE *lens = lens_flare_register(my, vector(9, 0, 0));
+	#endif
 	
 	while(my)
 	{
 		my->pan += 5 * time_step;
-		update_lens_flare(my);
+		
+		#ifdef LENS_FLARE_LIGHT
+			update_lens_flare(my);
+		#endif
+		
 		wait(1);
 	}
 }
@@ -328,16 +344,22 @@ void on_exit_event()
 
 void on_ent_remove_event(ENTITY *ent)
 {
-	if(ent->OBJ_TYPE == TYPE_LIGHT && ent->OBJ_STRUCT != 0)
-	{
-		remove_lens_flare(ent);
-	}
+	#ifdef LENS_FLARE_LIGHT
+		if(ent->OBJ_TYPE == TYPE_LIGHT && ent->OBJ_STRUCT != 0)
+		{
+			remove_lens_flare(ent);
+		}
+	#endif
 }
 
 void on_frame_event()
 {
 	shader_pipeline_update();
-	lens_flare_sun_update();
+	
+	#ifdef LENS_FLARE_SUN
+		lens_flare_sun_update();
+	#endif
+	
 	mouse_lock();
 }
 
@@ -414,7 +436,9 @@ void main()
 	shader_pipeline_init();
 	
 	// create sun lens flare
-	sun_lens_flare_create_all();
+	#ifdef LENS_FLARE_SUN
+		sun_lens_flare_create_all();
+	#endif
 	
 	VECTOR force, speed, dist;
 	ANGLE aforce, aspeed;

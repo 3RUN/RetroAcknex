@@ -244,7 +244,7 @@ void shader_pipeline_reset()
 	}
 	
 	// if you add any pp shaders into the view rendering chain, remove them all here too!
-	#ifdef NES_COLOR_PALETTE
+	#ifdef PSX_DITHER
 		pp_view->material = NULL;	
 		camera->stage = NULL;
 	#endif
@@ -265,7 +265,7 @@ void shader_pipeline_reset()
 	}
 	
 	// if you have any pp shaders, add them into view rendering chain here!
-	#ifdef NES_COLOR_PALETTE
+	#ifdef PSX_DITHER
 		pp_view->material = mtl_pp_screen_;	
 		camera->stage = pp_view;
 	#endif
@@ -298,7 +298,7 @@ void shader_pipeline_remove()
 	shader_pipeline_remove_sky();
 	shader_pipeline_remove_mirrors();
 	
-	#ifdef NES_COLOR_PALETTE
+	#ifdef PSX_DITHER
 		pp_view->material = NULL;	
 		camera->stage = NULL;
 	#endif
