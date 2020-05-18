@@ -20,6 +20,7 @@ This shader collection includes:
 - lens flares (from lights + sun)
 - solid object visible through walls (don't know how it's called)
 - PSX dither postprocessing shader
+- glow shader (uses first skin's alpha channel for glowing parts)
 
 PSone effects, could be toggled ON and OFF by commenting in .fx file for each material.
 
