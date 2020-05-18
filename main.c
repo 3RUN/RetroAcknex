@@ -32,6 +32,7 @@ action light_point()
 	set(my, UNLIT | BRIGHT | PASSABLE);
 	my->ambient = 100;
 	my->lightrange = 512;
+	vec_fill(&my->scale_x, 0.25);
 	vec_set(&my->blue, COLOR_WHITE);
 	vec_set(&my->skill1, &my->x);
 
@@ -78,6 +79,24 @@ action light_spot()
 action terrain()
 {
 	my->material = mtl_terrain_;
+}
+
+// same as translucent but with glow
+action sprite_with_glow()
+{
+	set(my, POLYGON | TRANSLUCENT | DECAL); // DECAL is only for test scene (to prevent rotation)
+	my->alpha = 100;
+	my->material = mtl_glow_translucent_;
+	
+	// set glow color for material
+	my->skill41 = floatv(255); // red
+	my->skill42 = floatv(0); // green
+	my->skill43 = floatv(0); // blue
+	my->skill44 = floatv(6); // glowing power
+	
+	#ifdef CUSTOM_AMBIENT
+		get_ambient_c_trace(my);
+	#endif
 }
 
 action translucent()
@@ -132,6 +151,32 @@ action npc()
 	set(my, POLYGON | SHADOW | CAST);
 	my->eflags |= ANIMATE;
 	my->material = mtl_solid_;
+	
+	#ifdef CUSTOM_AMBIENT
+		get_ambient_c_trace(my);
+	#endif
+	
+	while(my)
+	{
+		my->pan += 10 * time_step;
+		wait(1);
+	}
+}
+
+action npc_with_glow()
+{
+	c_setminmax(my);
+	vec_set(&my->min_x, vector(-16, -16, -32));
+	vec_set(&my->max_x, vector(16, 16, 32));
+	set(my, POLYGON | SHADOW | CAST);
+	my->eflags |= ANIMATE;
+	my->material = mtl_glow_solid_;
+	
+	// set glow color for material
+	my->skill41 = floatv(255); // red
+	my->skill42 = floatv(0); // green
+	my->skill43 = floatv(0); // blue
+	my->skill44 = floatv(6); // glowing power
 	
 	#ifdef CUSTOM_AMBIENT
 		get_ambient_c_trace(my);
@@ -418,7 +463,6 @@ void main()
 	
 	camera->fog_start = 128;
 	camera->fog_end = camera->clip_far * 0.9;
-	sun_angle.roll = camera->clip_far * 0.8; // sun distance
 	
 	fog_color = 4;
 	vec_set(&d3d_fogcolor4.blue, vector(128, 128, 128));
@@ -426,6 +470,11 @@ void main()
 	
 	vec_set(&camera->x, vector(-23, 437, 330));
 	vec_set(&camera->pan, vector(308, -33, 0));
+	
+	// sun starting position
+	sun_angle.pan = 50;
+	sun_angle.tilt = 40;
+	sun_angle.roll = camera->clip_far * 0.8; // sun distance
 	
 	sun_light = 50;
 	vec_set(&sun_color, vector(128, 128, 128));

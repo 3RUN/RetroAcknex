@@ -53,12 +53,6 @@ void sun_lens_flare_create_all()
 	sun_lens_flare_init(sun_lens_a_tga, 1, 2, 2, 1, 1.0, 40.0, vector(0, 0, 0));
 	sun_lens_flare_init(sun_lens_a_tga, 1, 2.3, 2.3, 1, 1.0, 40.0, vector(0, 0, 0));
 	sun_lens_flare_init(sun_lens_c_tga, 10, 13, 13, 1, 1.0, 100.0, vector(0, 0, 0));
-	sun_lens_flare_init(sun_lens_d_tga, 2, 1, 1, 1, 1, 3.0, vector(0, 0, 0));
-	sun_lens_flare_init(sun_lens_e_tga, 2, 1, 1, 1, 1, 5.0, vector(0, 0, 0));
-	sun_lens_flare_init(sun_lens_f_tga, 3, 1, 1, 1, 1, 60.0, vector(0.5, 0, 0));
-	sun_lens_flare_init(sun_lens_f_tga, 3, 1, 1, 1, 1, 60.0, vector(-0.5, 0, 0));
-	sun_lens_flare_init(sun_lens_f_tga, 3, 2, 0.7, 1, 1, 40.0, vector(1.1, 0, 0));
-	sun_lens_flare_init(sun_lens_f_tga, 3, 2, 0.7, 1, 1, 40.0, vector(-1.1, 0, 0));
 }
 
 // custom sun position
@@ -194,17 +188,6 @@ void lens_flare_sun_update()
 			
 			if(sun_lens.center_alpha[1] > sun_lens.center_alpha[2]){ sun_lens.center_alpha[0] = (100 - sun_lens.center_alpha[1]); }
 			if(sun_lens.center_alpha[2] > sun_lens.center_alpha[1]){ sun_lens.center_alpha[0] = (100 - sun_lens.center_alpha[2]); }
-			
-			sun_lens.flare[3].ent->scale_x = abs(temp_pos.x / 60.0);
-			sun_lens.flare[3].ent->scale_y = abs(temp_pos.x / 300.0);
-			sun_lens.flare[4].ent->scale_x = abs(temp_pos.x / 200.0);
-			sun_lens.flare[4].ent->scale_y = abs(temp_pos.x / 150.0);
-			sun_lens.flare[5].ent->scale_x = abs(temp_pos.x / 700.0);
-			sun_lens.flare[5].ent->scale_y = abs(temp_pos.x / 350.0);
-			sun_lens.flare[6].ent->scale_x = abs(temp_pos.x / 700.0);
-			sun_lens.flare[6].ent->scale_y = abs(temp_pos.x / 350.0);
-			sun_lens.flare[7].ent->scale_x = abs(temp_pos.x / 100.0);
-			sun_lens.flare[8].ent->scale_x = abs(temp_pos.x / 100.0);
 			
 			// fade in
 			if(sun_lens.temp_alpha[0] < MAX_SUN_ALPHA && is(sun_lens.sun_ent, FLAG8))

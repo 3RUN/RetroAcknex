@@ -316,6 +316,16 @@ void shader_pipeline_update()
 	mtl_solid_->skill3 = floatv(cutoff_distance);
 	mtl_solid_->skill4 = floatv(light_brightness);
 	
+	mtl_glow_solid_->skill1 = floatv(level_ambient);
+	mtl_glow_solid_->skill2 = floatv(vertex_snapping);
+	mtl_glow_solid_->skill3 = floatv(cutoff_distance);
+	mtl_glow_solid_->skill4 = floatv(light_brightness);
+	
+	mtl_glow_translucent_->skill1 = floatv(level_ambient);
+	mtl_glow_translucent_->skill2 = floatv(vertex_snapping);
+	mtl_glow_translucent_->skill3 = floatv(cutoff_distance);
+	mtl_glow_translucent_->skill4 = floatv(light_brightness);
+	
 	mtl_solid_zfunc->skill1 = floatv(level_ambient);
 	mtl_solid_zfunc->skill2 = floatv(vertex_snapping);
 	mtl_solid_zfunc->skill3 = floatv(cutoff_distance);

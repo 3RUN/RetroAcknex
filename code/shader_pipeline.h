@@ -55,6 +55,18 @@
 		flags = PASS_SOLID | AUTORELOAD;
 	}
 	
+	MATERIAL *mtl_glow_solid_ =
+	{
+		effect = "mtl_glow_solid_.fx";
+		flags = PASS_SOLID | AUTORELOAD;
+	}
+	
+	MATERIAL *mtl_glow_translucent_ =
+	{
+		effect = "mtl_glow_translucent_.fx";
+		flags = TRANSLUCENT | AUTORELOAD;
+	}
+	
 	MATERIAL *mtl_solid_zfunc =
 	{
 		effect = "mtl_solid_zfunc.fx";

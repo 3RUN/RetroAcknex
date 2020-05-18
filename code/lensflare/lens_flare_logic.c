@@ -22,9 +22,9 @@ void lens_flare_init(LENS_FLARE *flare, STRING *file_, var layer_, var size_x_, 
 // create all lens flare
 void lens_flare_create_all(LIGHT_SOURCE *light)
 {
-	lens_flare_init(&light->flare[0], lens_flare_a_tga, 1, 2, 2, 2, 1, 15.0, nullvector);
-	lens_flare_init(&light->flare[1], lens_flare_b_tga, 2, 1, 1, 1, 1, 25.0, nullvector);
-	lens_flare_init(&light->flare[2], lens_flare_c_tga, 3, 6, 0.5, 0.5, 1, 30.0, nullvector);
+	lens_flare_init(&light->flare[0], lens_flare_a_tga, 1, 0.5, 0.5, 0.5, 1, 15.0, nullvector);
+	lens_flare_init(&light->flare[1], lens_flare_b_tga, 2, 1, 1, 1, 1, 10.0, nullvector);
+	lens_flare_init(&light->flare[2], lens_flare_c_tga, 3, 0.5, 0.5, 0.5, 1, 15.0, nullvector);
 }
 
 // remove all lens flare

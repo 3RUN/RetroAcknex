@@ -1,16 +1,13 @@
 #ifndef _SUN_LENS_FLARE_H_
 	#define _SUN_LENS_FLARE_H_
 
-	#define MAX_FLARE_PER_SUN 9
+	#define MAX_FLARE_PER_SUN 3
 	#define MAX_SUN_ALPHA 90
 	#define SUN_ALPHA_FACTOR 1
 
 	STRING *sun_lens_a_tga = "LF_sunA.tga";
 	STRING *sun_lens_b_tga = "LF_sunB.tga";
 	STRING *sun_lens_c_tga = "LF_sunC.tga";
-	STRING *sun_lens_d_tga = "LF_sunD.tga";
-	STRING *sun_lens_e_tga = "LF_sunE.tga";
-	STRING *sun_lens_f_tga = "LF_sunF.tga";
 
 	VECTOR sun_pos3d;
 
